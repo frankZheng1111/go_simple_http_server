@@ -6,10 +6,14 @@ import (
 	"net/http"
 )
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
+func getHandler(w http.ResponseWriter, r *http.Request) {
+	queryParams := r.URL.Query()
 	respJson := map[string]interface{}{
 		"code": 1,
 		"msg":  "Hello world",
+	}
+	for key, params := range queryParams {
+		respJson[key] = params
 	}
 	resp, err := json.Marshal(respJson)
 	if err != nil {
@@ -22,6 +26,6 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/hello", getHandler)
 	http.ListenAndServe(":8080", nil)
 }
