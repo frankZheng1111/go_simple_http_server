@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func getHandler(w http.ResponseWriter, r *http.Request) {
+func indexHandler(w http.ResponseWriter, r *http.Request) {
 	queryParams := r.URL.Query()
 	respJson := map[string]interface{}{
 		"code": 1,
@@ -26,6 +26,6 @@ func getHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/hello", getHandler)
+	http.HandleFunc("/hello", indexHandler)
 	http.ListenAndServe(":8080", nil)
 }
